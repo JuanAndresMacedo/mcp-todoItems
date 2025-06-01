@@ -1,65 +1,76 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { TeamtailorClient } from "./teamtailor.js";
+import { TodoClient } from "./todoItem.js";
 
-if (!process.env.TEAMTAILOR_API_KEY) {
-  throw new Error("Missing TEAMTAILOR_API_KEY environment variable");
+if (!process.env.TODOLIST_API_URL) {
+  throw new Error("Missing TODOLIST_API_URL environment variable");
 }
 
-const client = new TeamtailorClient(
-  process.env.TEAMTAILOR_URL || "https://api.teamtailor.com/v1",
-  process.env.TEAMTAILOR_API_KEY as string
-);
+const client = new TodoClient(process.env.TODOLIST_API_URL);
 
 const server = new McpServer({
-  name: "teamtailor",
-  version: "0.0.2"
+  name: "todolist",
+  version: "1.0.0"
 });
 
 server.tool(
-  "teamtailor_list_candidates",
-  "List and filter candidates.",
+  "todo_create_item",
+  "Crea un ítem en la lista especificada",
   {
-    pageSize: z.number().default(10),
-    page: z.number().default(1),
-    filter: z.object({
-      createdAfter: z.string().optional(),
-      createdBefore: z.string().optional(),
-      updatedAfter: z.string().optional(),
-      updatedBefore: z.string().optional(),
-    }).optional(),
+    listId: z.string(),
+    description: z.string()
   },
-  async ({ pageSize, page, filter}) => {
-    const candidates = await client.listCandidates({ page, perPage: pageSize, filter });
-
+  async ({ listId, description }) => {
+    const item = await client.createItem(listId, description);
     return {
-      content: [
-        {
-          type: "text",
-          text: JSON.stringify(candidates),
-        }
-      ]
-    }
+      content: [{ type: 'text', text: JSON.stringify(item) }]
+    };
   }
 );
 
 server.tool(
-  "teamtailor_get_candidate",
-  "Get a single candidate by their id.",
+  "todo_update_item",
+  "Actualiza la descripción de un ítem existente",
   {
-    candidateId: z.number(),
+    listId: z.string(),
+    itemId: z.string(),
+    description: z.string()
   },
-  async ({ candidateId }) => {
-    const candidate = await client.getCandidate(candidateId);
-
+  async ({ listId, itemId, description }) => {
+    const item = await client.updateItem(listId, itemId, description);
     return {
-      content: [
-        {
-          type: "text",
-          text: JSON.stringify(candidate),
-        }
-      ]
-    }
+      content: [{ type: 'text', text: JSON.stringify(item) }]
+    };
+  }
+);
+
+server.tool(
+  "todo_complete_item",
+  "Marca un ítem como completado",
+  {
+    listId: z.string(),
+    itemId: z.string()
+  },
+  async ({ listId, itemId }) => {
+    const item = await client.completeItem(listId, itemId);
+    return {
+      content: [{ type: 'text', text: JSON.stringify(item) }]
+    };
+  }
+);
+
+server.tool(
+  "todo_delete_item",
+  "Elimina un ítem de la lista",
+  {
+    listId: z.string(),
+    itemId: z.string()
+  },
+  async ({ listId, itemId }) => {
+    const result = await client.deleteItem(listId, itemId);
+    return {
+      content: [{ type: 'text', text: JSON.stringify(result) }]
+    };
   }
 );
 

@@ -1,7 +1,7 @@
 {
-  "name": "mcp-teamtailor",
+  "name": "mcp-todoItems",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "workspaceFolder": "/workspaces/mcp-teamtailor",
+  "workspaceFolder": "/workspaces/mcp-todoItems",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22.12.0"
