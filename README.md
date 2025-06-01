@@ -6,9 +6,26 @@ MCP TodoItems es un servidor Model Context Protocol (MCP) que facilita la integr
 
 No se necesitan otras dependecias para usar el servidor MCP TodoItems.
 
-## Uso
+## Guía de Uso
 
-A continuación se muestra un ejemplo de configuración general para el cliente **Claude Desktop**, que fue la herramienta utilizada:
+se presenta una guía para ejecutar el servidor MCP y configurarlo en el cliente **Claude Desktop** (fue la herramienta utilizada durante el desarrollo). 
+
+### 1. Instalar dependencias y compilar el proyecto
+
+Abrir una terminal en la raíz del proyecto y ejecutar los siguientes comandos:
+
+```bash
+# Instalar las dependencias
+npm install
+
+# Compilar el proyecto
+npm run build
+```
+### 2. Configurar Claude Desktop
+
+Una vez que el servidor esté listo, se debe configurar **Claude Desktop** para que pueda comunicarse con él.
+
+A continuación se muestra un ejemplo de configuración genérico:
 
 ```json
 {
@@ -24,7 +41,6 @@ A continuación se muestra un ejemplo de configuración general para el cliente 
     }
   }
 }
-
 ```
 
 ## MCP Transport
