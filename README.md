@@ -1,6 +1,6 @@
 # mcp-todoItems
 
-MCP TodoItems es un servidor Model Context Protocol (MCP) que brinda una integración con la TodosAPI, la cual fue extendida en la primera parte del desafío.
+MCP TodoItems es un servidor Model Context Protocol (MCP) que facilita la integración con la TodosAPI, la cual fue extendida en la primera parte del desafío. Esta implementación se basa en el proyecto propocionado por Crunchloop: https://github.com/crunchloop/mcp-teamtailor
 
 ## Dependencias
 
@@ -51,3 +51,9 @@ A continuación se tiene la lista de tools disponibles:
 - **todo_delete_item** – Elimina un ítem de la lista.
   - `listId`: ID de la lista que contiene el ítem (string, required)
   - `itemId`: ID del ítem a eliminar (string, required)
+
+## Experiencia de implementación
+
+En primer lugar, crear un servidor MCP que exponga distintas tools fue un desafío totalmente **nuevo** para mí, por lo que contar con el proyecto base que me proporcionaron resultó de mucha ayuda para orientarme y saber por dónde empezar. A su vez, **Claude Desktop** era otra herramienta que no conocía, gracias a recursos en internet (ej: tutorial en YouTube, inteligencia artificial, documentación de Claude) y la configuración de ejemplo, pude integrar correctamente las tools en la IA. 
+
+Sinceramente, este proyecto me permitió descubrir una herramienta muy útil, ya que resulta muy conveniente poder enviar prompts en lenguaje natural y que una IA los traduzca en solicitudes a una API.
