@@ -1,50 +1,53 @@
-# mcp-teamtailor
+# mcp-todoItems
 
-The MCP Teamtailor is a Model Context Protocol (MCP) server that provides a simple integration with the [teamtailor api](https://docs.teamtailor.com/).
+MCP TodoItems es un servidor Model Context Protocol (MCP) que brinda una integración con la TodosAPI, la cual fue extendida en la primera parte del desafío.
 
-## Dependencies
+## Dependencias
 
-No other dependencies are required to use the MCP Teamtailor server.
+No se necesitan otras dependecias para usar el servidor MCP TodoItems.
 
-## Usage
+## Uso
 
-MCP servers are configured differently depending on the client that you are using. For reference, this is how you would configure it using Claude Desktop.
+A continuación se muestra un ejemplo de configuración general para el cliente **Claude Desktop**, que fue la herramienta utilizada:
 
 ```json
 {
   "mcpServers": {
-    "teamtailor": {
-      "command": "npx",
+    "todolist": {
+      "command": "node",
       "args": [
-        "-y",
-        "@crunchloop/mcp-teamtailor"
+        "ejemplo/ruta/archivo/dist/index.js" //Ruta local al archivo index.js
       ],
       "env": {
-        "TEAMTAILOR_URL": "https://api.teamtailor.com/v1",
-        "TEAMTAILOR_API_KEY": "XXXX"
+        "TODOLIST_API_URL": "https://ejemplo.api" //URL de la API
       }
     }
   }
 }
+
 ```
 
 ## MCP Transport
 
-At the moment, only `stdio` transport has been implemented.
+Por el momento, solo se ha implementado el transporte `stdio`.
 
 ## Tools
 
-- **teamtailor_list_candidates** - List and filter candidates.
-  - `pageSize`: The size of the page response (string, optional)
-  - `page`: The page number to retrieve (string, optional)
-  - `filter.createdAfter`: Filter candidates created after a specific date (string, optional)
-  - `filter.createdBefore`: Filter candidates created before a specific date (string, optional)
-  - `filter.updatedAfter`: Filter candidates updated after a specific date (string, optional)
-  - `filter.updatedBefore`: Filter candidates updated before a specific date (string, optional)
+A continuación se tiene la lista de tools disponibles:
 
-- **teamtailor_get_candidate** - Get a single candidate by their id.
-  - `candidateId`: The id of the candidate to retrieve (number, required)
+- **todo_create_item** – Crea un ítem en la lista especificada.
+  - `listId`: ID de la lista en la que se creará el ítem (string, required)
+  - `description`: Descripción del ítem a crear (string, required)
 
-## License
+- **todo_update_item** – Actualiza la descripción de un ítem existente.
+  - `listId`: ID de la lista que contiene el ítem (string, required)
+  - `itemId`: ID del ítem a actualizar (string, required)
+  - `description`: Nueva descripción del ítem (string, required)
 
-Released under the MIT License.  See the [LICENSE](./LICENSE) file for further details.
+- **todo_complete_item** – Marca un ítem como completado.
+  - `listId`: ID de la lista que contiene el ítem (string, required)
+  - `itemId`: ID del ítem a marcar como completado (string, required)
+
+- **todo_delete_item** – Elimina un ítem de la lista.
+  - `listId`: ID de la lista que contiene el ítem (string, required)
+  - `itemId`: ID del ítem a eliminar (string, required)
