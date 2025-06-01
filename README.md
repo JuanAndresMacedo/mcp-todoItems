@@ -8,7 +8,7 @@ No se necesitan otras dependecias para usar el servidor MCP TodoItems.
 
 ## Guía de Uso
 
-se presenta una guía para ejecutar el servidor MCP y configurarlo en el cliente **Claude Desktop** (fue la herramienta utilizada durante el desarrollo). 
+Se presenta una guía para ejecutar el servidor MCP y configurarlo en el cliente **Claude Desktop** (fue la herramienta utilizada durante el desarrollo). 
 
 ### 1. Instalar dependencias y compilar el proyecto
 
